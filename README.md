@@ -9,7 +9,6 @@
   <img src="https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen?logo=springboot" alt="Spring Boot 4.0" />
   <img src="https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven" alt="Maven" />
   <img src="https://img.shields.io/badge/Database-H2-lightgrey?logo=h2" alt="H2 Database" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License MIT" />
 </p>
 
 ---
@@ -32,7 +31,6 @@
 - [Testing](#-testing)
 - [Roadmap](#-roadmap)
 - [Author](#-author)
-- [License](#-license)
 
 ---
 
@@ -314,24 +312,22 @@ a consistent JSON error payload.
 
 The application uses **Spring Security with HTTP Basic Authentication**.
 
-Configure credentials via environment variables (recommended):
-
-```bash
-export APP_SECURITY_USER=postgres
-export APP_SECURITY_PASS=ROOT
-```
-
 For protected endpoints, send the header:
 
 ```http
 Authorization: Basic <base64(username:password)>
 ```
 
-**Generate the Base64 value:**
+**Generate the Base64 value** using [Base64Encode.net](https://www.base64encode.net/):
 
-```bash
-echo -n "postgres:ROOT" | base64
-# cG9zdGdyZXM6Uk9PVA==
+```text
+postgres:ROOT
+```
+
+Encoded value:
+
+```text
+cG9zdGdyZXM6Uk9PVA==
 ```
 
 Then use it:
@@ -340,9 +336,17 @@ Then use it:
 Authorization: Basic cG9zdGdyZXM6Uk9PVA==
 ```
 
+You can also encode from the command line:
+
+```bash
+echo -n "postgres:ROOT" | base64
+# cG9zdGdyZXM6Uk9PVA==
+```
+
 > ⚠️ **Security note:** Base64 is *encoding*, not encryption. Never use HTTP Basic Auth
-> over an unencrypted connection in production. Always serve behind HTTPS and rotate
-> credentials via a secret manager (Vault, AWS Secrets Manager, etc.).
+> over an unencrypted connection in production. The credentials above are development
+> examples; use secure environment-based credentials in real deployments, and always
+> serve behind HTTPS.
 
 ---
 
@@ -429,13 +433,6 @@ Run unit and integration tests:
 
 - GitHub: [@A1Reza](https://github.com/A1Reza)
 - Repository: [employee-management-api](https://github.com/A1Reza/employee-management-api)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for
-details.
 
 ---
 
