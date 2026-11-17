@@ -184,3 +184,36 @@ GET http://localhost:8083/actuator
 ### 19. PROTECTED ENDPOINT WITH BASIC AUTH
 GET http://localhost:8083/actuator
 Authorization: Basic cG9zdGdyZXM6Uk9PVA==
+
+### 20. PUBLIC DASHBOARD
+GET http://localhost:8083/dashboard
+
+
+### 21. PROTECTED ADMIN - WITHOUT AUTH
+GET http://localhost:8083/admin
+
+
+### 22. PROTECTED ADMIN - WITH AUTH
+GET http://localhost:8083/admin
+Authorization: Basic cG9zdGdyZXM6Uk9PVA==
+
+
+### 23. PROTECTED PROFILE - WITH AUTH
+GET http://localhost:8083/profile
+Authorization: Basic cG9zdGdyZXM6Uk9PVA==
+
+
+### 24. PROTECTED REPORTS - WITH AUTH
+GET http://localhost:8083/reports
+Authorization: Basic cG9zdGdyZXM6Uk9PVA==
+
+
+### 25. PROTECTED SETTINGS - WITH AUTH
+GET http://localhost:8083/settings
+Authorization: Basic cG9zdGdyZXM6Uk9PVA==
+
+
+### 26. INVALID CREDENTIALS
+GET http://localhost:8083/admin
+Authorization: Basic d3Jvbmc6d3Jvbmc=
+
