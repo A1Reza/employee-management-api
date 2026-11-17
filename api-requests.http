@@ -1,0 +1,186 @@
+### ==========================================
+### EMPLOYEE MANAGEMENT API
+### Base URL: http://localhost:8083
+### ==========================================
+
+
+### 1. CREATE EMPLOYEE - Ali (IT)
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Ali",
+  "lastName": "Ahmadi",
+  "email": "ali@example.com",
+  "department": "IT",
+  "salary": 75000
+}
+
+
+### 2. CREATE EMPLOYEE - Sara (HR)
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Sara",
+  "lastName": "Mohammadi",
+  "email": "sara@example.com",
+  "department": "HR",
+  "salary": 65000
+}
+
+
+### 3. CREATE EMPLOYEE - Reza (IT)
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Reza",
+  "lastName": "Karimi",
+  "email": "reza@example.com",
+  "department": "IT",
+  "salary": 80000
+}
+
+
+### 4. CREATE EMPLOYEE - Mehdi (Finance)
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Mehdi",
+  "lastName": "Ahmadi",
+  "email": "mehdi@example.com",
+  "department": "Finance",
+  "salary": 70000
+}
+
+
+### ==========================================
+### GET REQUESTS
+### ==========================================
+
+
+### 5. GET ALL EMPLOYEES
+GET http://localhost:8083/employees
+Accept: application/json
+
+
+### 6. GET EMPLOYEE BY ID
+GET http://localhost:8083/employees/1
+Accept: application/json
+
+
+### 7. SEARCH BY FIRST NAME
+GET http://localhost:8083/employees/search?firstName=Ali
+Accept: application/json
+
+
+### 8. SEARCH BY DEPARTMENT
+GET http://localhost:8083/employees/byDepartment?department=IT
+Accept: application/json
+
+
+### 9. SEARCH BY EXACT EMAIL
+GET http://localhost:8083/employees/byEmail?email=ali@example.com
+Accept: application/json
+
+
+### ==========================================
+### DELETE REQUEST
+### ==========================================
+
+
+### 10. DELETE EMPLOYEE BY ID
+DELETE http://localhost:8083/employees/2
+
+
+### 11. VERIFY DELETED EMPLOYEE
+GET http://localhost:8083/employees/2
+
+
+### ==========================================
+### VALIDATION TESTS
+### Expected: 400 Bad Request
+### ==========================================
+
+
+### 12. MISSING FIRST NAME
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "lastName": "Ahmadi",
+  "email": "test1@example.com",
+  "department": "IT",
+  "salary": 50000
+}
+
+
+### 13. EMPTY LAST NAME
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Ali",
+  "lastName": "",
+  "email": "test2@example.com",
+  "department": "IT",
+  "salary": 50000
+}
+
+
+### 14. FIRST NAME WITH ONE CHARACTER
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "A",
+  "lastName": "Ahmadi",
+  "email": "test3@example.com",
+  "department": "IT",
+  "salary": 50000
+}
+
+
+### 15. MISSING SALARY
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "test4@example.com",
+  "department": "HR"
+}
+
+
+### 16. EMPTY EMAIL
+POST http://localhost:8083/employees
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "",
+  "department": "HR",
+  "salary": 50000
+}
+
+
+### ==========================================
+### SECURITY TESTS
+### ==========================================
+
+
+### 17. PUBLIC EMPLOYEES ENDPOINT
+GET http://localhost:8083/employees
+
+
+### 18. PROTECTED ENDPOINT WITHOUT AUTHENTICATION
+GET http://localhost:8083/actuator
+
+
+### 19. PROTECTED ENDPOINT WITH BASIC AUTH
+GET http://localhost:8083/actuator
+Authorization: Basic cG9zdGdyZXM6Uk9PVA==
