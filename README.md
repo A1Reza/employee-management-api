@@ -1,22 +1,59 @@
 # 👨‍💼 Employee Management API
 
-\<p align="center">   A RESTful API for managing employee information, built with Spring Boot. \</p>
+<p align="center">
+  <em>A RESTful API for managing employee information, built with Spring Boot.</em>
+</p>
 
-\<p align="center">   \<img src="[https://img.shields.io/badge/Java-21-orange?logo=openjdk](https://img.shields.io/badge/Java-21-orange?logo=openjdk)" />   \<img src="[https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen?logo=springboot](https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen?logo=springboot)" />   \<img src="[https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven](https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven)" />   \<img src="[https://img.shields.io/badge/Database-H2-lightgrey?logo=h2](https://img.shields.io/badge/Database-H2-lightgrey?logo=h2)" /> \</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-21-orange?logo=openjdk" alt="Java 21" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-4.0-brightgreen?logo=springboot" alt="Spring Boot 4.0" />
+  <img src="https://img.shields.io/badge/Maven-Build-blue?logo=apachemaven" alt="Maven" />
+  <img src="https://img.shields.io/badge/Database-H2-lightgrey?logo=h2" alt="H2 Database" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License MIT" />
+</p>
+
+---
+
+## 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#️-tech-stack)
+- [Architecture](#️-architecture)
+- [Getting Started](#-getting-started)
+- [Configuration](#️-configuration)
+- [API Endpoints](#-api-endpoints)
+- [Request / Response Examples](#-request--response-examples)
+- [Validation Rules](#-validation-rules)
+- [Error Handling](#️-error-handling)
+- [Security](#-security)
+- [Swagger UI](#-swagger-ui)
+- [H2 Console](#️-h2-console)
+- [Testing](#-testing)
+- [Roadmap](#-roadmap)
+- [Author](#-author)
+- [License](#-license)
+
+---
 
 ## 📖 Overview
 
-Employee Management API is a Spring Boot RESTful application designed to manage employee records. It provides CRUD operations, employee search capabilities, data validation, database persistence, and endpoint security.
+**Employee Management API** is a Spring Boot RESTful application designed to manage
+employee records. It provides CRUD operations, employee search capabilities, request
+validation, database persistence, and endpoint security.
 
-The project follows a layered architecture with separate Controller, Service, Repository, DTO, Model, and Configuration packages.
+The project follows a **layered architecture** with separate `Controller`, `Service`,
+`Repository`, `DTO`, `Model`, and `Configuration` packages.
+
+---
 
 ## ✨ Features
 
 - 👤 Create and retrieve employee records
-- 📋 Get all employees and find employees by ID
+- 📋 List all employees / find by ID
 - 🔍 Search employees by first name
 - 🏢 Filter employees by department
-- 📧 Find employees by email using custom JPQL
+- 📧 Find employees by email using custom JPQL query
 - 🗑️ Delete employee records
 - ✅ Request validation using Jakarta Bean Validation
 - ⚠️ Global exception handling with custom validation messages
@@ -24,7 +61,9 @@ The project follows a layered architecture with separate Controller, Service, Re
 - 🗄️ H2 in-memory database with Spring Data JPA
 - 📚 Interactive API documentation with Swagger UI
 
-## 🛠️ Technologies
+---
+
+## 🛠️ Tech Stack
 
 | Technology              | Purpose                          |
 | ----------------------- | -------------------------------- |
@@ -34,13 +73,15 @@ The project follows a layered architecture with separate Controller, Service, Re
 | Spring Data JPA         | Data persistence                 |
 | Hibernate               | ORM                              |
 | H2 Database             | In-memory database               |
-| Spring Security         | Authentication and authorization |
+| Spring Security         | Authentication & authorization   |
 | Jakarta Bean Validation | Input validation                 |
 | SpringDoc OpenAPI       | API documentation                |
 | Lombok                  | Boilerplate code reduction       |
 | Maven                   | Dependency management and build  |
 
-## 📁 Project Structure
+---
+
+## 🏗️ Architecture
 
 ```text
 src/main/java/com/employees
@@ -66,55 +107,105 @@ src/main/java/com/employees
     └── EmployeeService.java
 ```
 
+**Request flow:** `Client → Controller → Service → Repository → H2 Database`
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Java 21 or higher
-- Maven
-- IntelliJ IDEA or another Java IDE
+- **Java 21** or higher
+- **Maven 3.9+** (or use the included `mvnw` wrapper)
+- IntelliJ IDEA or any Java IDE (optional)
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**
 
-```bash
-git clone https://github.com/A1Reza/employee-management-api.git
-```
+   ```bash
+   git clone https://github.com/A1Reza/employee-management-api.git
+   cd employee-management-api
+   ```
 
-2. Navigate to the project directory:
+2. **Build the project**
 
-```bash
-cd employee-management-api
-```
+   ```bash
+   ./mvnw clean install
+   ```
 
-3. Run the application:
+3. **Run the application**
 
-```bash
-mvn spring-boot:run
-```
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
-The application runs at:
+   Or run the generated JAR:
+
+   ```bash
+   java -jar target/employee-management-api.jar
+   ```
+
+The application will be available at:
 
 ```text
 http://localhost:8083
 ```
 
+---
+
+## ⚙️ Configuration
+
+Key properties (`application.properties` / `application.yml`):
+
+| Property                          | Default                    | Description                    |
+| --------------------------------- | -------------------------- | ------------------------------ |
+| `server.port`                     | `8083`                     | HTTP server port               |
+| `spring.datasource.url`           | `jdbc:h2:mem:employeedb`   | H2 JDBC URL                    |
+| `spring.datasource.username`      | `sa`                       | Database username              |
+| `spring.datasource.password`      | *(empty)*                  | Database password              |
+| `spring.jpa.hibernate.ddl-auto`   | `update`                   | Schema generation strategy     |
+
+**Security credentials** should be supplied via environment variables:
+
+| Variable              | Default     | Description              |
+| --------------------- | ----------- | ------------------------ |
+| `APP_SECURITY_USER`   | `postgres`  | Basic Auth username      |
+| `APP_SECURITY_PASS`   | `ROOT`      | Basic Auth password      |
+
+> ⚠️ Never commit real credentials to source control.
+
+---
+
 ## 🔗 API Endpoints
 
-Base URL: `http://localhost:8083`
+**Base URL:** `http://localhost:8083`
 
-| Method | Endpoint                                   | Description             |
-| ------ | ------------------------------------------ | ----------------------- |
-| GET    | `/employees`                               | Retrieve all employees  |
-| GET    | `/employees/{id}`                          | Retrieve employee by ID |
-| POST   | `/employees`                               | Create a new employee   |
-| DELETE | `/employees/{id}`                          | Delete an employee      |
-| GET    | `/employees/search?firstName=Ali`          | Search by first name    |
-| GET    | `/employees/byDepartment?department=IT`    | Filter by department    |
-| GET    | `/employees/byEmail?email=ali@example.com` | Search by email         |
+| Method | Endpoint                                   | Description              | Auth |
+| ------ | ------------------------------------------ | ------------------------ | :--: |
+| GET    | `/employees`                               | Retrieve all employees   | 🔒   |
+| GET    | `/employees/{id}`                          | Retrieve employee by ID  | 🔒   |
+| POST   | `/employees`                               | Create a new employee    | 🔒   |
+| DELETE | `/employees/{id}`                          | Delete an employee       | 🔒   |
+| GET    | `/employees/search?firstName=Ali`          | Search by first name     | 🔒   |
+| GET    | `/employees/byDepartment?department=IT`    | Filter by department     | 🔒   |
+| GET    | `/employees/byEmail?email=ali@example.com` | Search by email (JPQL)   | 🔒   |
 
-## 📝 Example Request
+**HTTP status codes used:**
+
+| Code | Meaning                                              |
+| ---- | ---------------------------------------------------- |
+| 200  | OK – request succeeded                               |
+| 201  | Created – employee successfully created              |
+| 204  | No Content – employee deleted                        |
+| 400  | Bad Request – validation failed                      |
+| 401  | Unauthorized – missing / invalid credentials         |
+| 404  | Not Found – employee does not exist                  |
+| 500  | Internal Server Error                                |
+
+---
+
+## 📝 Request / Response Examples
 
 ### Create Employee
 
@@ -130,58 +221,154 @@ Base URL: `http://localhost:8083`
 }
 ```
 
+**Response `201 Created`:**
+
+```json
+{
+  "id": 1,
+  "firstName": "Ali",
+  "lastName": "Ahmadi",
+  "email": "ali@example.com",
+  "department": "IT",
+  "salary": 65000.0
+}
+```
+
+### Get Employee by ID
+
+**GET** `/employees/1` → `200 OK`
+
+### Search by First Name
+
+**GET** `/employees/search?firstName=Ali` → `200 OK`
+
+```json
+[
+  {
+    "id": 1,
+    "firstName": "Ali",
+    "lastName": "Ahmadi",
+    "email": "ali@example.com",
+    "department": "IT",
+    "salary": 65000.0
+  }
+]
+```
+
+### Delete Employee
+
+**DELETE** `/employees/1` → `204 No Content`
+
+---
+
+## ✅ Validation Rules
+
+| Field        | Constraint                                     |
+| ------------ | ---------------------------------------------- |
+| `firstName`  | Not blank, max 50 characters                   |
+| `lastName`   | Not blank, max 50 characters                   |
+| `email`      | Not blank, valid email format, must be unique  |
+| `department` | Not blank, max 50 characters                   |
+| `salary`     | Positive number, greater than 0                |
+
+Violations return `400 Bad Request` with field-level messages.
+
+---
+
+## ⚠️ Error Handling
+
+A `GlobalExceptionHandler` (`@RestControllerAdvice`) intercepts exceptions and returns
+a consistent JSON error payload.
+
+**Example – validation failure (`400 Bad Request`):**
+
+```json
+{
+  "timestamp": "2025-01-15T10:30:00Z",
+  "status": 400,
+  "error": "Validation Failed",
+  "message": "One or more fields are invalid",
+  "path": "/employees",
+  "details": [
+    "email: must be a well-formed email address",
+    "salary: must be greater than 0"
+  ]
+}
+```
+
+**Example – employee not found (`404 Not Found`):**
+
+```json
+{
+  "timestamp": "2025-01-15T10:31:12Z",
+  "status": 404,
+  "error": "Not Found",
+  "message": "Employee with id 99 not found",
+  "path": "/employees/99"
+}
+```
+
+---
+
 ## 🔐 Security
 
-The application uses Spring Security with HTTP Basic Authentication.
+The application uses **Spring Security with HTTP Basic Authentication**.
 
-Example credentials for the configured development environment:
+Configure credentials via environment variables (recommended):
 
-```text
-Username: postgres
-Password: ROOT
+```bash
+export APP_SECURITY_USER=postgres
+export APP_SECURITY_PASS=ROOT
 ```
 
-For protected endpoints, Basic Authentication requires a Base64-encoded value of:
+For protected endpoints, send the header:
 
-```text
-username:password
+```http
+Authorization: Basic <base64(username:password)>
 ```
 
-You can encode this value using:
+**Generate the Base64 value:**
 
-🔗 [Base64Encode.net](https://www.base64encode.net/)
-
-Example:
-
-```text
-postgres:ROOT
+```bash
+echo -n "postgres:ROOT" | base64
+# cG9zdGdyZXM6Uk9PVA==
 ```
 
-Encoded value:
-
-```text
-cG9zdGdyZXM6Uk9PVA==
-```
-
-Use it in the HTTP request header:
+Then use it:
 
 ```http
 Authorization: Basic cG9zdGdyZXM6Uk9PVA==
 ```
 
-**Note:** Base64 is encoding, not encryption. Do not use Basic Authentication over an unencrypted connection in production. The credentials above are development examples; use secure environment-based credentials in real deployments.
+> ⚠️ **Security note:** Base64 is *encoding*, not encryption. Never use HTTP Basic Auth
+> over an unencrypted connection in production. Always serve behind HTTPS and rotate
+> credentials via a secret manager (Vault, AWS Secrets Manager, etc.).
 
-## 📚 API Documentation — Swagger
+---
 
-Interactive API documentation is available at:
+## 📚 Swagger UI
 
-[http://localhost:8083/swagger-ui/index.html](http://localhost:8083/swagger-ui/index.html)
+Interactive API documentation:
 
-## 🗄️ H2 Database Console
+```text
+http://localhost:8083/swagger-ui/index.html
+```
 
-The H2 database console is available at:
+OpenAPI JSON:
 
-[http://localhost:8083/h2-console](http://localhost:8083/h2-console)
+```text
+http://localhost:8083/v3/api-docs
+```
+
+---
+
+## 🗄️ H2 Console
+
+Available at:
+
+```text
+http://localhost:8083/h2-console
+```
 
 Connection settings:
 
@@ -189,32 +376,69 @@ Connection settings:
 | -------- | ------------------------ |
 | JDBC URL | `jdbc:h2:mem:employeedb` |
 | Username | `sa`                     |
-| Password | Leave empty              |
+| Password | *(leave empty)*          |
 
-Example SQL query:
+Example query:
 
 ```sql
 SELECT * FROM EMPLOYEE;
 ```
 
+---
+
 ## 🧪 Testing
 
-API endpoints can be tested using:
+API endpoints can be exercised with:
 
-- IntelliJ IDEA HTTP Client (`api-requests.http`)
-- Postman
-- Swagger UI
+- **IntelliJ IDEA HTTP Client** (`api-requests.http`)
+- **Postman** / **Insomnia**
+- **Swagger UI** (browser-based)
+- **cURL**
 
-The project includes request validation scenarios and authentication tests.
+Quick smoke test:
+
+```bash
+curl -u postgres:ROOT http://localhost:8083/employees
+```
+
+Run unit and integration tests:
+
+```bash
+./mvnw test
+```
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Add `PUT /employees/{id}` (full update)
+- [ ] Add `PATCH /employees/{id}` (partial update)
+- [ ] Add pagination & sorting (`Pageable`)
+- [ ] Replace Basic Auth with JWT-based authentication
+- [ ] Add role-based authorization (ADMIN / USER)
+- [ ] Add Testcontainers-based integration tests
+- [ ] Add Dockerfile & docker-compose
+- [ ] Add CI pipeline (GitHub Actions)
+- [ ] Add response caching for read-heavy endpoints
+
+---
 
 ## 👨‍💻 Author
 
 **Reza Asadipour**
 
-GitHub: [@A1Reza](https://github.com/A1Reza)
+- GitHub: [@A1Reza](https://github.com/A1Reza)
+- Repository: [employee-management-api](https://github.com/A1Reza/employee-management-api)
 
 ---
 
-\<p align="center">
-&#x20; Built with ☕ and Spring Boot
-\</p>
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for
+details.
+
+---
+
+<p align="center">
+  Built with ☕ and Spring Boot
+</p>
